@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siri Samskruthi - Digital Folk-Lore Map</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #map { height: 80vh; width: 100%; }
+        .header { 
+            background: #d32f2f; color: white; padding: 15px; text-align: center;
+            border-bottom: 5px solid #ffca28;
+        }
+        .popup-content { max-width: 250px; line-height: 1.6; }
+        .lang-sec { margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .btn-play { 
+            background: #4caf50; color: white; border: none; padding: 5px 10px; 
+            border-radius: 4px; cursor: pointer; font-size: 12px; 
+        }
+        footer { padding: 10px; text-align: center; font-size: 0.8em; color: #666; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>ಸಿರಿ ಸಂಸ್ಕೃತಿ: Digital Folk-Lore Map</h1>
+    <p>Explore the Cultural Heritage of Kasaragod & North Kerala</p>
+</div>
+
+<div id="map"></div>
+
+<footer>
+    Created for KITE ICT Resource Plan | Master Trainer Support
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    // Initialize the map focused on Kasaragod region
+    const map = L.map('map').setView([12.5101, 75.0076], 10);
+
+    // Use OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Cultural Data Array
+    const folkLoreData = [
+        {
+            name: "Yakshagana",
+            coords: [12.5101, 74.9852],
+            kannada: "ಯಕ್ಷಗಾನ: ಕರಾವಳಿ ಕರ್ನಾಟಕದ ಸಾಂಪ್ರದಾಯಿಕ ಕಲೆ.",
+            malayalam: "യക്ഷഗാന: തീരദേശ കർണാടകയുടെ പരമ്പരാഗത കല.",
+            videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ" // Replace with real Yakshagana clip
+        },
+        {
+            name: "Theyyam",
+            coords: [12.1155, 75.2045], // Near Nileshwar
+            kannada: "ತೆಯ್ಯಂ: ಉತ್ತರ ಕೇರಳದ ಆಚರಣೆಯ ನೃತ್ಯ ರೂಪ.",
+            malayalam: "തെയ്യം: വടക്കൻ കേരളത്തിലെ അനുഷ്ഠാന കലാരൂപം.",
+            videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ" // Replace with real Theyyam clip
+        }
+    ];
+
+    // Add Markers to Map
+    folkLoreData.forEach(item => {
+        const popupHTML = `
+            <div class="popup-content">
+                <h3>${item.name}</h3>
+                <div class="lang-sec">
+                    <strong>ಕನ್ನಡ:</strong> ${item.kannada}
+                </div>
+                <div class="lang-sec">
+                    <strong>മലയാളം:</strong> ${item.malayalam}
+                </div>
+                <iframe width="100%" height="150" src="${item.videoUrl}" frameborder="0" allowfullscreen></iframe>
+                <p><small>ICT Task: Students can record their own audio descriptions here.</small></p>
+            </div>
+        `;
+        
+        L.marker(item.coords).addTo(map).bindPopup(popupHTML);
+    });
+
+</script>
+
+</body>
+</html>

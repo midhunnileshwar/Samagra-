@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ಡೊಳ್ಳುಕುಣಿತ - Interactive Learning</title>
+    <style>
+        :root {
+            --dollu-red: #d32f2f;
+            --dollu-gold: #ffca28;
+            --wood: #5d4037;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fdf5e6;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            background: var(--dollu-red);
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            text-align: center;
+        }
+        /* Virtual Dollu Styling */
+        .dollu-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 40px auto;
+            background: var(--wood);
+            border-radius: 50%;
+            border: 15px solid #3e2723;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .drum-pad {
+            width: 45%;
+            height: 80%;
+            background: #f4e4bc;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: transform 0.1s;
+            user-select: none;
+        }
+        .drum-pad:active { transform: scale(0.95); background: #e0d0a0; }
+        
+        #pad-right { border-right: 5px solid var(--dollu-red); } /* Guni side */
+        #pad-left { border-left: 5px solid #555; } /* Chapu side */
+
+        .info-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid var(--dollu-gold);
+            margin-top: 20px;
+            text-align: left;
+            min-height: 80px;
+        }
+        .controls { margin-top: 20px; }
+        .btn {
+            background: var(--dollu-red);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .attire-img { width: 150px; border-radius: 10px; margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>ಡೊಳ್ಳುಕುಣಿತ (Dollu Kunitha)</h1>
+    <p>Interactive Music & Culture Resource</p>
+</div>
+
+<div class="container">
+    <div class="info-box" id="display">
+        <strong>ಸೂಚನೆ (Instruction):</strong> ಪಕ್ಕದ ಡೊಳ್ಳಿನ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ. ಬಲಗೈಯಿಂದ 'ಗುಣಿ' ಮತ್ತು ಎಡಗೈಯಿಂದ 'ಛಾಪು' ಶಬ್ದಗಳನ್ನು ಅನುಭವಿಸಿ.
+    </div>
+
+    <div class="dollu-container">
+        <div id="pad-left" class="drum-pad" onclick="playSound('chapu')">ಎಡಗೈ<br>(ಛಾಪು)</div>
+        <div id="pad-right" class="drum-pad" onclick="playSound('guni')">ಬಲಗೈ<br>(ಗುಣಿ)</div>
+    </div>
+
+    <div class="controls">
+        <button class="btn" onclick="showInfo('tradition')">ಸಂಪ್ರದಾಯ (Tradition)</button>
+        <button class="btn" onclick="showInfo('attire')">ಉಡುಪು (Attire)</button>
+        <button class="btn" onclick="showInfo('instrument')">ವಾದ್ಯ (Instrument)</button>
+    </div>
+
+    <div id="attire-display">
+        <p id="attire-text"></p>
+    </div>
+</div>
+
+<script>
+    function playSound(type) {
+        const display = document.getElementById('display');
+        if(type === 'guni') {
+            display.innerHTML = "<strong>ಗುಣಿ (Guni):</strong> ಬಲಗೈಯಿಂದ ಬಾರಿಸುವ ಗತ್ತು. ಇದು ಆಳವಾದ ಶಬ್ದವನ್ನು ನೀಡುತ್ತದೆ.";
+            // Logic for actual audio file can be added here: new Audio('guni.mp3').play();
+        } else {
+            display.innerHTML = "<strong>ಛಾಪು (Chapu):</strong> ಎಡಗೈಯಿಂದ ಹಾಕುವ ತಾಳ. ಇದು ಗುಣಿಗೆ ಪೂರಕವಾಗಿರುತ್ತದೆ.";
+        }
+    }
+
+    function showInfo(topic) {
+        const display = document.getElementById('display');
+        const attireText = document.getElementById('attire-text');
+        
+        if(topic === 'tradition') {
+            display.innerHTML = "<strong>ಬೀರೇಶ್ವರ ಸಂಪ್ರದಾಯ:</strong> ಇದು ಹಾಲುಮತ ಸಮುದಾಯಕ್ಕೆ ಸೇರಿದ ಕಲೆ. ಬ್ರಹ್ಮಪಲ್ಲಕ್ಕಿ ಉತ್ಸವದ ಸಮಯದಲ್ಲಿ ಇದನ್ನು ಪ್ರದರ್ಶಿಸಲಾಗುತ್ತದೆ.";
+        } else if(topic === 'attire') {
+            display.innerHTML = "<strong>ವೇಷಭೂಷಣ:</strong> ಮೇಲ್ಭಾಗಕ್ಕೆ ಕರಿಯ ಕಂಬಳಿ, ಕೆಳಭಾಗಕ್ಕೆ ಕಚ್ಚೆಪಂಚೆ. ಕೆಲವೊಮ್ಮೆ ಹುಲಿ ಚರ್ಮದ ವಿನ್ಯಾಸದ ಉಡುಪು ಬಳಸುತ್ತಾರೆ.";
+        } else if(topic === 'instrument') {
+            display.innerHTML = "<strong>ಡೊಳ್ಳು:</strong> ಪೊಳ್ಳು ಪಡಗದ ಎರಡೂ ಬಾಯಿಗಳಿಗೆ ತೊಗಲು ಹೊದಿಸಿ ಹಗ್ಗದಿಂದ ಬಿಗಿದಿರುತ್ತಾರೆ.";
+        }
+    }
+</script>
+
+</body>
+</html>
